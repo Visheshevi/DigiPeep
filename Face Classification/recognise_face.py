@@ -68,7 +68,7 @@ for face_encoding in face_encodings:
     # See if the face is a match for the known face(s)
     matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
     name = "Unknown"
-    print(matches)
+
     # # If a match was found in known_face_encodings, just use the first one.
     # if True in matches:
     #     first_match_index = matches.index(True)
@@ -77,13 +77,14 @@ for face_encoding in face_encodings:
     # Or instead, use the known face with the smallest distance to the new face
     face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
     best_match_index = np.argmin(face_distances)
+
+
     if matches[best_match_index]:
         name = known_face_names[best_match_index]
 
 
     face_names.append(name)
 
-print(face_names)
 # Display the results
 for (top, right, bottom, left), name in zip(face_locations, face_names):
     # Scale back up face locations since the frame we detected in was scaled to 1/4 size
@@ -92,11 +93,6 @@ for (top, right, bottom, left), name in zip(face_locations, face_names):
     # bottom *= 4
     # left *= 4
 
-    print(top)
-    print(right)
-    print(left)
-    print(bottom)
-    print(test_image.shape)
     # Draw a box around the face
     cv2.rectangle(test_image, (left, top), (right, bottom), (0, 0, 255), 2)
 
